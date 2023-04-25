@@ -1,4 +1,4 @@
-import pygame
+from pygame import *
 from random import randint
 
 window = display.set_mode((700, 500))
@@ -43,7 +43,6 @@ class Enemy(GameSprite):
 
 player = Player(250, 450, 125, 30, 'platform.png', 7)
 enemy = Enemy(250, 30, 125, 30, 'platform.png', 7)
-ball = Ball(250, 225, 50, 50, 'ball.png', 7)
 
 game = True
 finish = False
@@ -58,7 +57,5 @@ while game:
         player.update()
         enemy.reset()
         enemy.update()
-        ball.reset()
-        ball.update()
     clock.tick(FPS)
     display.update()
