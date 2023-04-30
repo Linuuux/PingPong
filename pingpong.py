@@ -10,8 +10,8 @@ death = 0
 player = transform.scale(image.load('platform.png'), (225, 225))
 enemy = transform.scale(image.load('platform.png'), (225, 225))
 ball = transform.scale(image.load('ball.png'), (225, 225))
-speed_x = 3
-speed_y = 3
+speed_x = 5
+speed_y = 5
 lose_txt = font.SysFont('verdana', 70).render('GAME OVER', True, (240, 0, 0))
 clock = time.Clock()
 FPS = 60
@@ -65,9 +65,9 @@ class Ball(GameSprite):
 
 
 
-player = Player(250, 450, 125, 30, 'platform.png', 7)
-enemy = Enemy(250, 30, 125, 30, 'platform.png', 7)
-ball = Ball(250, 200, 40, 40, 'ball.png', 0)
+player = Player(250, 450, 125, 30, 'platform.png', 10)
+enemy = Enemy(250, 30, 125, 30, 'platform.png', 10)
+ball = Ball(250, 200, 30, 30, 'ball.png', 0)
 
 game = True
 finish = False
