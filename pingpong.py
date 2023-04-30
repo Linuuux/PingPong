@@ -1,5 +1,6 @@
 from pygame import *
 from random import randint
+font.init()
 
 window = display.set_mode((700, 500))
 display.set_caption('pingpong')
@@ -9,6 +10,9 @@ death = 0
 player = transform.scale(image.load('platform.png'), (225, 225))
 enemy = transform.scale(image.load('platform.png'), (225, 225))
 ball = transform.scale(image.load('ball.png'), (225, 225))
+speed_x = 3
+speed_y = 3
+lose_txt = font.SysFont('verdana', 70).render('GAME OVER', True, (240, 0, 0))
 clock = time.Clock()
 FPS = 60
 
@@ -40,9 +44,30 @@ class Enemy(GameSprite):
         if keys_pressed[K_LEFT] and self.rect.x > 0:
             self.rect.x -= self.speed
 
+class Ball(GameSprite):
+    def update(self):
+        global speed_x, speed_y
+        self.rect.x += speed_x
+        self.rect.y += speed_y
+        if sprite.collide_rect(self, player):
+            speed_y *= -1
+            speed_x *= 1
+        if sprite.collide_rect(self, enemy):
+            speed_y *= -1
+            speed_x *= 1
+        if self.rect.x >= 660:
+            speed_y *= 1
+            speed_x *= -1
+        if self.rect.x <= 0:
+            speed_y *= 1
+            speed_x *= -1
+
+
+
 
 player = Player(250, 450, 125, 30, 'platform.png', 7)
 enemy = Enemy(250, 30, 125, 30, 'platform.png', 7)
+ball = Ball(250, 200, 40, 40, 'ball.png', 0)
 
 game = True
 finish = False
@@ -57,5 +82,13 @@ while game:
         player.update()
         enemy.reset()
         enemy.update()
+        ball.reset()
+        ball.update()
+        if ball.rect.y >= 460:
+            finish = True
+            window.blit(lose_txt, (200, 200))
+        if ball.rect.y <= 0:
+            finish = True
+            window.blit(lose_txt, (200, 200))
     clock.tick(FPS)
     display.update()
