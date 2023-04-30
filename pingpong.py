@@ -38,10 +38,12 @@ class Player(GameSprite):
 
 class Enemy(GameSprite):
     def update(self):
-        keys_pressed = key.get_pressed()
-        if keys_pressed[K_RIGHT] and self.rect.x < 570:
+        global speed_y
+        if speed_y > 0:
+            return
+        if self.rect.x < ball.rect.x:
             self.rect.x += self.speed
-        if keys_pressed[K_LEFT] and self.rect.x > 0:
+        if self.rect.x > ball.rect.x:
             self.rect.x -= self.speed
 
 class Ball(GameSprite):
